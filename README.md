@@ -18,16 +18,15 @@ Database Integration: Utilizes PostgreSQL for storing and retrieving data relate
 Tech Stack:
 
 Frontend:
-
-HTML
-CSS
+HTML, 
+CSS, 
 EJS (Embedded JavaScript)
 
 Backend:
-
 Node.js with Express.js
 
 Database:
 PostgreSQL
+
 
 
