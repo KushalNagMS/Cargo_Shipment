@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Types</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            margin-top: 35px;
+            margin-left: 100vh;
+            font-size: 24px;
+            background-color: rgb(149, 207, 212);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Available Train Types</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Train ID</th>
+                <th>Train Type</th>
+                <th>Capacity</th>
+                <th>Speed</th>
+                <th>Constraints</th>
+                <th>Example</th>
+                <th>Max Weight Of a Container</th>
+                <th>Cost Of Extra Weight</th>
+                <th>Hazardous Cost Per TEU</th>
+                <th>Cost per TEU (20 Foot Container)</th>
+                <th>Cost per TEU (40 Foot Container)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (train_types.length > 0) { %>
+                <% train_types.forEach(train => { %>
+                    <tr>
+                        <td><%= train.id %></td>
+                        <td><%= train.train_type %></td>
+                        <td><%= train.capacity %></td>
+                        <td><%= train.speed %></td>
+                        <td><%= train.constraints %></td>
+                        <td><%= train.example %></td>
+                        <td><%= train.max_weight_of_container %></td>
+                        <td><%= train.cost_per_extra_weight %></td>
+                        <td><%= train.hazardous_cost_per_teu %></td>
+                        <td><%= train.cost_per_teu_20_foot %></td>
+                        <td><%= train.cost_per_teu_40_foot %></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="11">No train types available.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <h2>Enter the values:</h2>
+    <form action="/cost_train" method="get">
+        <h3>Non-Hazardous:</h3>
+        <label for="train_id_1">Choose the train ID:</label>
+        <input type="number" name="train_id_1" id="train_id_1">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>20 Foot Container</th>
+                    <th>40 Foot Container</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="nh_n_20f_c_f">Normal Container Frequency:</label>
+                        <input type="number" name="nh_n_20f_c_f">
+                        <label for="nh_n_20f_c_tw">Total Weight:</label>
+                        <input type="number" name="nh_n_20f_c_tw">
+                    </td>
+                    <td>
+                        <label for="nh_n_40f_c_f">Normal Container Frequency:</label>
+                        <input type="number" name="nh_n_40f_c_f">
+                        <label for="nh_n_40f_c_tw">Total Weight:</label>
+                        <input type="number" name="nh_n_40f_c_tw">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Hazardous:</h2>
+        <label for="train_id_2">Choose the train ID:</label>
+        <input type="number" name="train_id_2" id="train_id_2">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>20 Foot Container</th>
+                    <th>40 Foot Container</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="h_n_20f_c_f">Container Frequency:</label>
+                        <input type="number" name="h_n_20f_c_f">
+                        <label for="h_n_20f_c_tw">Total Weight:</label>
+                        <input type="number" name="h_n_20f_c_tw">
+                    </td>
+                    <td>
+                        <label for="h_n_40f_c_f">Container Frequency:</label>
+                        <input type="number" name="h_n_40f_c_f">
+                        <label for="h_n_40f_c_tw">Total Weight:</label>
+                        <input type="number" name="h_n_40f_c_tw">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Refrigerated Non-Hazardous:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>20 Foot Container</th>
+                    <th>40 Foot Container</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="r_n_20f_c_f">Container Frequency:</label>
+                        <input type="number" name="r_n_20f_c_f">
+                        <label for="r_n_20f_c_tw">Total Weight:</label>
+                        <input type="number" name="r_n_20f_c_tw">
+                    </td>
+                    <td>
+                        <label for="r_n_40f_c_f">Container Frequency:</label>
+                        <input type="number" name="r_n_40f_c_f">
+                        <label for="r_n_40f_c_tw">Total Weight:</label>
+                        <input type="number" name="r_n_40f_c_tw">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Refrigerated Hazardous:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>20 Foot Container</th>
+                    <th>40 Foot Container</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="rh_n_20f_c_f">Container Frequency:</label>
+                        <input type="number" name="rh_n_20f_c_f">
+                        <label for="rh_n_20f_c_tw">Total Weight:</label>
+                        <input type="number" name="rh_n_20f_c_tw">
+                    </td>
+                    <td>
+                        <label for="rh_n_40f_c_f">Container Frequency:</label>
+                        <input type="number" name="rh_n_40f_c_f">
+                        <label for="rh_n_40f_c_tw">Total Weight:</label>
+                        <input type="number" name="rh_n_40f_c_tw">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="submit">OK</button>
+    </form>
+</body>
+</html>

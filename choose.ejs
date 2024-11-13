@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Types</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Available Train Types</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Train ID</th>
+                <th>Train Type</th>
+                <th>Capacity</th>
+                <th>Speed</th>
+                <th>Constraints</th>
+                <th>example</th>
+                <th>Max Weight Of a Container</th>
+                <th>Cost Of Extra Weight</th>
+                <th>Hazardous Cost Per TEU</th>
+                <th>Cost per TEU (20 Foot Container)</th>
+                <th>Cost per TEU (40 Foot Container)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (train_types.length > 0) { %>
+                <% train_types.forEach(train => { %>
+                    <tr>
+                        <td><%= train.id %></td>
+                        <td><%= train.train_type %></td>
+                        <td><%= train.capacity %></td>
+                        <td><%= train.speed %></td>
+                        <td><%= train.constraintts %></td>
+                        <td><%= train.example  %></td>
+                        <td><%= train.max_weight_of_container  %></td>
+                        <td><%= train.cost_per_extra_weight %></td>
+                        <td><%= train.hazardous_cost_per_teu  %></td>
+                        <td><%= train.cost_per_teu_20_foot  %></td>
+                        <td><%= train.cost_per_teu_40_foot  %></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="5">No train types available.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <h1>Available Train Routes</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Starting Location</th>
+                <th>Destination</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if(train_locations.length>0) { %>
+                <% train_locations.forEach(location=> {%>
+                    <tr>
+                        <td><%= location.starting_location %></td>
+                        <td><%= location.destination_location %></td>
+                        <td><!-- Button that sends the GET request to /containers with selected data -->
+                            <form action="/containers" method="get">
+                                <input type="hidden" name="starting_location" value="<%= location.starting_location %>">
+                                <input type="hidden" name="destination_location" value="<%= location.destination_location %>">
+                                <button type="submit">Select</button>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                    <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="5">No train types available.</td>
+                        </tr>
+                    <% } %>
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <h1>Available Ship Types</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Ship ID</th>
+                <th>Ship Type</th>
+                <th>Capacity</th>
+                <th>Speed</th>
+                <th>Constraints</th>
+                <th>example</th>
+                <th>Max Weight Of a Container</th>
+                <th>Cost Of Extra Weight</th>
+                <th>Hazardous Cost Per TEU</th>
+                <th>Cost per TEU (20 Foot Container)</th>
+                <th>Cost per TEU (40 Foot Container)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (ship_types.length > 0) { %>
+                <% ship_types.forEach(train => { %>
+                    <tr>
+                        <td><%= train.id %></td>
+                        <td><%= train.ship_type %></td>
+                        <td><%= train.capacity %></td>
+                        <td><%= train.speed %></td>
+                        <td><%= train.constraintts %></td>
+                        <td><%= train.example  %></td>
+                        <td><%= train.max_weight_of_container  %></td>
+                        <td><%= train.cost_per_extra_weight %></td>
+                        <td><%= train.hazardous_cost_per_teu  %></td>
+                        <td><%= train.cost_per_teu_20_foot  %></td>
+                        <td><%= train.cost_per_teu_40_foot  %></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="5">No train types available.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <h1>Available Ship Routes</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Starting Location</th>
+                <th>Destination</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if(ship_locations.length>0) { %>
+                <% ship_locations.forEach(location=> {%>
+                    <tr>
+                        <td><%= location.starting_location %></td>
+                        <td><%= location.destination_location %></td>
+                        <td>
+                            <form action="/containers" method="get">
+                            <input type="hidden" name="starting_location" value="<%= location.starting_location %>">
+                            <input type="hidden" name="destination_location" value="<%= location.destination_location %>">
+                            <button type="submit">Select</button>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                    <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="5">No train types available.</td>
+                        </tr>
+                    <% } %>
+        </tbody>
+
+    </table>
+
+</table>
+
+</body>
+</html>
